@@ -144,6 +144,7 @@
     ]
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "6.26.0",
     "chalk": "2.4.1",
     "compression": "1.7.2",
@@ -152,6 +153,7 @@
     "fontfaceobserver": "2.0.13",
     "history": "4.7.2",
     "hoist-non-react-statics": "2.5.5",
+    "http-proxy-middleware": "^0.19.1",
     "immutable": "3.8.2",
     "intl": "1.2.5",
     "invariant": "2.2.4",
@@ -174,7 +176,8 @@
     "sanitize.css": "4.1.0",
     "styled-components": "3.3.2",
     "warning": "4.0.1",
-    "whatwg-fetch": "2.0.4"
+    "whatwg-fetch": "2.0.4",
+    "ws": "^6.1.2"
   },
   "devDependencies": {
     "add-asset-html-webpack-plugin": "2.1.3",

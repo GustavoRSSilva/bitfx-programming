@@ -66,6 +66,13 @@ module.exports = require('./webpack.base.babel')({
   performance: {
     hints: false,
   },
+
+  proxy: {
+    '/2': {
+      target: 'http://localhost:port',
+      ws: true
+    }
+  }
 });
 
 /**
