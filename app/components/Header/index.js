@@ -1,32 +1,29 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
+/**
+ *
+ * Header
+ *
+ */
 
-import A from './A';
-import Img from './Img';
-import NavBar from './NavBar';
-import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
+import React from 'react';
+// import PropTypes from 'prop-types';
+
+import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import { Wrapper } from './styles';
 
 /* eslint-disable react/prefer-stateless-function */
-class Header extends React.Component {
+class Header extends React.PureComponent {
   render() {
     return (
-      <div>
-        <A href="https://twitter.com/mxstbr">
-          <Img src={Banner} alt="react-boilerplate - Logo" />
-        </A>
-        <NavBar>
-          <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
-          </HeaderLink>
-          <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
-          </HeaderLink>
-        </NavBar>
-      </div>
+      <Wrapper>
+      
+        <FormattedMessage {...messages.header} />
+
+      </Wrapper>
     );
   }
 }
+
+Header.propTypes = {};
 
 export default Header;
