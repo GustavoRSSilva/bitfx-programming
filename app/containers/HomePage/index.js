@@ -12,10 +12,11 @@ import { bindActionCreators, compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
 
 import Header from 'components/Header';
+import Trades from 'components/Trades';
 
 import { TICKER, TRADES, BOOK } from './constants';
 import * as actions from './actions';
-import { selectTicker, selectConnection } from './selectors';
+import { selectTicker, selectConnection, selectTrades } from './selectors';
 import reducer from './reducer';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -36,18 +37,43 @@ export class HomePage extends React.PureComponent {
 
     const availableSockets = [
       TICKER,
-      // TRADES,
-      // BOOK
+      TRADES,
+      BOOK
     ];
 
     availableSockets.map(channel => {
       this.ws[channel] = new WebSocket('wss://api.bitfinex.com/ws/2');
 
       this.ws[channel].onmessage = msg => {
-        const data = msg.data;
-        if (!(typeof data === 'string' && data.includes('hb'))) {
-          setChannel(channel, msg.data);
+        let data = msg.data;
+        switch (channel) {
+
+          case TICKER:
+            if (!(typeof data === 'string' && data.includes('hb'))) {
+              setChannel(channel, msg.data);
+            }
+            break;
+
+          case TRADES:
+            const { trades = [] } = this.props;
+            if (!(typeof data === 'string' && data.includes('hb'))) {
+              data = JSON.parse(data);
+              if(data[1] === "tu" || data[1] === "te") {
+                setChannel(channel, [...trades, data]);
+              }
+            }
+
+            break;
+
+          case BOOK:
+            if (!(typeof data === 'string' && data.includes('hb'))) {
+              setChannel(channel, msg.data);
+            }
+            break;
+          default:
+
         }
+
       };
 
       const msg = JSON.stringify({
@@ -66,8 +92,20 @@ export class HomePage extends React.PureComponent {
     });
   }
 
+  renderTrades() {
+    const { trades } = this.props;
+    return (
+      <Trades trades={trades}/>
+    );
+
+  }
+
+  renderBook() {
+    return null;
+  }
+
   render() {
-    const { connection, ticker } = this.props;
+    const { connection, ticker, trades } = this.props;
     return (
       <div>
         <Header
@@ -75,7 +113,8 @@ export class HomePage extends React.PureComponent {
           initConnection={this.initWebsocket}
           ticker={ticker}
         />
-        Homepage
+        {this.renderTrades()}
+        {this.renderBook()}
       </div>
     );
   }
@@ -88,6 +127,7 @@ HomePage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   connection: selectConnection(),
   ticker: selectTicker(),
+  trades: selectTrades(),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
