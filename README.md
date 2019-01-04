@@ -1,4 +1,5 @@
-# bitcoin-on-browser
+# Bitfinex programming
+
 
 <p align="center">
 <img src="app/assets/img/Screenshot 2019-01-04 at 01.23.14.png" alt="drawing" width="200" align="center"/>
@@ -7,7 +8,6 @@
 </p>
 
 
-Bitfinex programming
 
 
 ## Getting started
