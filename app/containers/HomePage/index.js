@@ -13,7 +13,7 @@ import injectReducer from 'utils/injectReducer';
 
 import Header from 'components/Header';
 
-import { TICKER, TRADES, BOOK} from './constants';
+import { TICKER, TRADES, BOOK } from './constants';
 import * as actions from './actions';
 import { selectTicker, selectConnection } from './selectors';
 import reducer from './reducer';
@@ -28,7 +28,7 @@ export class HomePage extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.initWebsocket()
+    this.initWebsocket();
   }
 
   initWebsocket() {
@@ -40,38 +40,41 @@ export class HomePage extends React.PureComponent {
       // BOOK
     ];
 
-    availableSockets.map((channel) => {
-      console.log(channel);
+    availableSockets.map(channel => {
       this.ws[channel] = new WebSocket('wss://api.bitfinex.com/ws/2');
 
-      this.ws[channel].onmessage = (msg) => {
-        console.log(msg);
-        let data =  msg.data;
-        if(!(typeof data === 'string' &&  data.includes('hb'))) {
-          if(typeof msg.data === 'string') {
-            data = JSON.parse(data);
-          }
+      this.ws[channel].onmessage = msg => {
+        const data = msg.data;
+        if (!(typeof data === 'string' && data.includes('hb'))) {
           setChannel(channel, msg.data);
         }
       };
 
       const msg = JSON.stringify({
         event: 'subscribe',
-        channel: channel,
-        symbol: 'tBTCUSD'
+        channel,
+        symbol: 'tBTCUSD',
       });
 
-      this.ws[channel].onopen = (e) => { setConnection(true); return this.ws[channel].send(msg) };
-      this.ws[channel].onclose = (e) => { setConnection(false)};
+      this.ws[channel].onopen = e => {
+        setConnection(true);
+        return this.ws[channel].send(msg);
+      };
+      this.ws[channel].onclose = e => {
+        setConnection(false);
+      };
     });
   }
 
   render() {
-    const { connection, ticker } = this.props;
-    console.log(connection);
+    const { connection, ticker } = this.props;
     return (
       <div>
-        <Header connection={connection} initConnection={this.initWebsocket} ticker={ticker}/>
+        <Header
+          connection={connection}
+          initConnection={this.initWebsocket}
+          ticker={ticker}
+        />
         Homepage
       </div>
     );
@@ -80,11 +83,10 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   connection: PropTypes.bool.isRequired,
-  ticker: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  connection: selectConnection(),
+  connection: selectConnection(),
   ticker: selectTicker(),
 });
 

@@ -70,9 +70,9 @@ module.exports = require('./webpack.base.babel')({
   proxy: {
     '/2': {
       target: 'http://localhost:port',
-      ws: true
-    }
-  }
+      ws: true,
+    },
+  },
 });
 
 /**

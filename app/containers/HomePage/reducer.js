@@ -14,12 +14,6 @@ import {
   SET_CHANNEL,
 } from './constants';
 
-const setState = (requesting = false, error = null, data = null) => ({
-  requesting,
-  error,
-  data,
-});
-
 export const initialState = fromJS({
   [CONNECTION]: false,
   [TICKER]: [],
@@ -29,15 +23,12 @@ export const initialState = fromJS({
 
 function homePageReducer(state = initialState, action) {
   switch (action.type) {
-
     //    Set connection
     case SET_CONNECTION:
       return state.set(CONNECTION, action.payload);
 
-
     //    Set channel
     case SET_CHANNEL:
-    console.log(action.payload);
       return state.set(action.payload.channel, action.payload.data);
 
     default:

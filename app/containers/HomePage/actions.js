@@ -3,15 +3,12 @@
  * HomePage actions
  *
  */
-import {
-  SET_CONNECTION,
-  SET_CHANNEL,
-} from './constants';
+import { SET_CONNECTION, SET_CHANNEL } from './constants';
 
 export function setConnection(payload) {
   return {
     type: SET_CONNECTION,
-    payload
+    payload,
   };
 }
 

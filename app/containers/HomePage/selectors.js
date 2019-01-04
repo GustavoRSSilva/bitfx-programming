@@ -14,7 +14,6 @@ const selectHomePageDomain = state => state.get('homePage', initialState);
 const selectConnection = () =>
   createSelector(selectHomePageDomain, subState => subState.get(CONNECTION));
 
-
 const selectTicker = () =>
   createSelector(selectHomePageDomain, subState => subState.get(TICKER));
 
@@ -32,4 +31,10 @@ const makeSelectHomePage = () =>
   createSelector(selectHomePageDomain, substate => substate.toJS());
 
 export default makeSelectHomePage;
-export { selectHomePageDomain, selectTicker, selectConnection, selectTrades, selectBook };
+export {
+  selectHomePageDomain,
+  selectTicker,
+  selectConnection,
+  selectTrades,
+  selectBook,
+};
