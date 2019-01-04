@@ -11,6 +11,8 @@ import React from 'react';
 /* eslint-disable react/prefer-stateless-function */
 class Book extends React.PureComponent {
   render() {
+    const { book } = this.props;
+    console.log(book);
     return <div />;
   }
 }

@@ -6,6 +6,7 @@ export const Title = styled.div`
   font-size: 34px;
   text-transform: uppercase;
   font-weight: bold;
+  margin-top: 20px;
 `;
 
 export const Table = styled.table`
@@ -13,7 +14,8 @@ export const Table = styled.table`
   width: 80%;
   margin: 20px auto;
 
-  td, th {
+  td,
+  th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
@@ -24,10 +26,9 @@ export const Table = styled.table`
   }
 `;
 
-
 export const Status = styled.div`
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  background: ${(props) => props.up ? 'green' : 'red'};
+  background: ${props => (props.up ? 'green' : 'red')};
 `;
