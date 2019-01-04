@@ -100,7 +100,7 @@ export class HomePage extends React.PureComponent {
 
     availableSockets.map(channel => {
       this.ws[channel].close();
-    })
+    });
   }
 
   renderTrades() {
