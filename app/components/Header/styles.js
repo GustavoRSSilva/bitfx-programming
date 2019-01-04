@@ -42,6 +42,10 @@ export const Connection = styled.div`
     border-radius: 5px;
     margin: 0 15px;
     padding: 5px 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
