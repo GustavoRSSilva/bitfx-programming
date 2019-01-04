@@ -14,14 +14,16 @@ import { Wrapper, TickerFragment, Values, Circle, Connection } from './styles';
 /* eslint-disable react/prefer-stateless-function */
 class Header extends React.PureComponent {
   renderConnection() {
-    const { connection, initConnection } = this.props;
+    const { connection, initConnection, closeConnection } = this.props;
     return (
       <Connection>
+        <button onClick={closeConnection}>Disconnect</button>
         <button onClick={initConnection}>Connect</button>
         <Circle connection={connection} />
       </Connection>
     );
   }
+
   renderTicker() {
     const { ticker } = this.props;
     if (!ticker.length) {
@@ -78,6 +80,7 @@ class Header extends React.PureComponent {
 Header.propTypes = {
   connection: PropTypes.bool.isRequired,
   initConnection: PropTypes.func.isRequired,
+  closeConnection: PropTypes.func.isRequired,
 };
 
 export default Header;
